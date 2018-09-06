@@ -1,0 +1,13 @@
+connect 127.0.0.1
+ 
+batch
+
+module add --name=com.mysql --resources=/tmp/mysql-connector-java-5.1.36-bin.jar --dependencies=javax.api,javax.transaction.api
+  
+/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql)
+
+data-source add --jndi-name=java:/jboss/datasources/KeycloakDS --name=KeycloakDS --connection-url=jdbc:mysql://localhost:3306/keycloak --driver-name=mysql --user-name=root --password=msadmin15
+
+run-batch
+
+

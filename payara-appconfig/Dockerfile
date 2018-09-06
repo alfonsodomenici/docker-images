@@ -9,10 +9,7 @@ ENV DB_NAME sample
 ENV DB_USER app
 ENV DB_PASSWORD app
 RUN asadmin start-domain ${DOMAIN_NAME} && \
-	asadmin create-jdbc-connection-pool --steadypoolsize ${MINIMUM} --maxwait ${MAX_WAIT} --maxpoolsize ${MAX_POOL_SIZE} --datasourceclassname org.apache.derby.jdbc.ClientDataSource --restype javax.sql.DataSource --property PortNumber=${DB_PORT}:Password=${DB_PASSWORD}:User=${DB_USER}:ServerName=localhost:DatabaseName=${DB_NAME} dbpool && \
+	asadmin create-jdbc-connection-pool --steadypoolsize ${MINIMUM} --maxwait ${MAX_WAIT} --maxpoolsize ${MAX_POOL_SIZE} --datasourceclassname org.apache.derby.jdbc.ClientDataSource --restype javax.sql.DataSource --property PortNumber=${DB_PORT}:Password=${DB_PASSWORD}:User=${DB_USER}:ServerName=192.168.99.100:DatabaseName=${DB_NAME}:connectionAttributes=\;create\\=true dbpool && \
 	asadmin create-jdbc-resource --port 4848 --connectionpoolid dbpool jdbc/dbpool && \
-	#asadmin ping-connection-pool dbpool && \
-	asadmin set resources.jdbc-connection-pool.SamplePool.steady-pool-size=${MINIMUM} && \
-	asadmin set resources.jdbc-connection-pool.SamplePool.max-wait-time-in-millis=${MAX_WAIT} && \
-	asadmin set resources.jdbc-connection-pool.SamplePool.max-pool-size=${MAX_POOL_SIZE}  && \
+	asadmin ping-connection-pool dbpool && \
     	asadmin stop-domain ${DOMAIN_NAME}
