@@ -1,4 +1,4 @@
-FROM it.alfonsodomenici/java:11
+FROM alfonsodomenici/java:11
 MAINTAINER Alfonso Domenici, alfonsodomenici.it
 ENV VERSION 19.1.0.Final
 ENV INSTALL_DIR /opt
